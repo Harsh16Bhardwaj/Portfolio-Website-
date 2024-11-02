@@ -1,0 +1,15 @@
+"hello": "world"
+1: "money in my bank"
+---
+#lists
+-apple
+-banana
+-cherry
+-Apple
+---
+cities:
+ -delhi
+ -noida
+ -gurgaon
+ -faridabad
+ ...

@@ -1,7 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import './herosection.css';
-import Socials from '../socials/socials';
+import Socials from '../../socials/socials';
 import PulsatingArrow from './pulsating';
+import Skills from '../../skills/skills';
 
 const HeroSection = () => {
     return (
@@ -11,6 +12,7 @@ const HeroSection = () => {
             <p>A creative frontend developer skilled in React, Three.js, and GSAP, with a strong interest in cloud infrastructure and Kubernetes. Passionate about interactive design and tech, blending frontend expertise and cinematic storytelling.</p>
             <Socials />
             <PulsatingArrow />
+            <Skills />
         </div>
     );
 }

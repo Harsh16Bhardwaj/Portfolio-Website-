@@ -5,7 +5,7 @@ import { FaInstagram } from "react-icons/fa";
 import { FaYoutube } from "react-icons/fa6";
 import { FaGithub } from "react-icons/fa";
 import gsap from "gsap"; // Make sure to import gsap
-import "../landing/herosection.css"
+import "../landing/mainsection/herosection.css"
 const Socials = () => {
     useEffect(() => {
         const icons = document.querySelectorAll('.icon');

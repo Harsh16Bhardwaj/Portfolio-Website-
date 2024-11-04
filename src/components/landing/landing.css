@@ -30,7 +30,9 @@ body {
 }
 .btn-grad {
   margin: 2%;
-  padding: 10px 30px;
+  padding: 0.5rem;
+  padding-left: 2.3rem;
+  padding-right: 2.3rem;
   text-align: center;
   transition: 0.5s;
   background-size: 200% auto;

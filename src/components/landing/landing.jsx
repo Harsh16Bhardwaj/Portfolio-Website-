@@ -1,32 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import './landing.css';
-import HeroSection from './herosection';
 
-const ThreeScene = () => {
+const ThreeScene = ({children}) => {
     const mountRef = useRef(null);
-    const [showText, setShowText] = useState(false);
-    const [greeting, setGreeting] = useState("");
-    const [showHeroSection, setShowHeroSection] = useState(false); // Ensure you set this to true when needed
     const mouseRef = useRef({ x: 0, y: 0 });
-    const [followerPosition, setFollowerPosition] = useState({ x: 0, y: 0 });
-
-    useEffect(() => {
-        const now = new Date();
-        const istOffset = 5.5 * 60; // IST offset in minutes
-        const istTime = new Date(now.getTime() + (now.getTimezoneOffset() + istOffset) * 60000);
-        const hours = istTime.getHours();
-
-        if (hours >= 5 && hours < 12) {
-            setGreeting("Good Morning");
-        } else if (hours >= 12 && hours < 17) {
-            setGreeting("Good Afternoon");
-        } else if (hours >= 17) {
-            setGreeting("Good Evening");
-        } else {
-            setGreeting("Good Night");
-        }
-    }, []);
 
     useEffect(() => {
         const script = document.createElement('script');
@@ -83,11 +61,7 @@ const ThreeScene = () => {
                     radius * Math.sin(phi) * Math.sin(theta),
                     radius * Math.cos(phi)
                 );
-                
-                star.originalPosition = star.position.clone();
-                star.originalScale = star.scale.clone();
-                star.speedFactor = layer.speedFactor;
-                
+
                 return star;
             };
 
@@ -119,7 +93,6 @@ const ThreeScene = () => {
             requestAnimationFrame(animate);
 
             if (!transitionStarted && time > 1500) {
-                setShowText(true);
                 startTime = time;
                 transitionStarted = true;
             }
@@ -159,17 +132,6 @@ const ThreeScene = () => {
         };
     };
 
-    const handleFollowerMove = (e) => {
-        setFollowerPosition({
-            x: e.clientX,
-            y: e.clientY
-        });
-    };
-    const handleButtonClick = () => {
-        setShowHeroSection(true); // Update state to show HeroSection
-    };
-
-
     return (
         <div 
             style={{ 
@@ -179,44 +141,10 @@ const ThreeScene = () => {
                 overflow: 'hidden',
                 touchAction: 'none'
             }}
-            onMouseMove={handleFollowerMove}
         >
-            <div ref={mountRef} className="bgDiv" />
-            {showHeroSection ? <HeroSection /> : (showText && (
-                <div
-                    className="centeredText"
-                    style={{
-                        position: 'absolute',
-                        top: '50%',
-                        left: '50%',
-                        transform: 'translate(-50%, -50%)',
-                        color: 'white',
-                        fontWeight: '600',
-                        fontSize: '2.5rem',
-                        textShadow: '0px 0px 5px rgba(255,255,255,0.8)',
-                    }}
-                >
-                    <h3>{greeting},<span style={{
-                        color: '#b60000',
-                        textShadow: '0px 0px 0px rgba(255,255,255,0)',
-                        fontSize: '3.4rem',
-                        fontFamily: 'Poppins',
-                        fontWeight: '800'
-                    }}> GentleMan</span></h3>
-                    <div className='text-center'>
-                        <button className="btn-grad" onClick={handleButtonClick}>Begin</button> {/* Updated to call handler */}
-                    </div>
-                    <div
-                className="pointer-events-none absolute tracker"
-                style={{
-                    transform: `translate(${followerPosition.x - 458}px, ${followerPosition.y - 450}px)`,
-                    transition: 'transform 0.05s linear'
-                }}
-            />
-                </div>
-                
-            ))}
-            
+            <div ref={mountRef} className="bgDiv">
+                {children}
+            </div>
         </div>
     );
 };

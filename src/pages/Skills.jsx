@@ -1,93 +1,101 @@
 import { motion } from 'framer-motion';
+import { useSpring, animated } from '@react-spring/web';
+import { useInView } from 'react-intersection-observer';
+import {Tilt} from 'react-tilt';
+import { FaReact, FaNodeJs, FaJs, FaHtml5, FaCss3, FaGit, FaDocker } from 'react-icons/fa';
+import { SiTypescript, SiMongodb, SiPostgresql, SiTailwindcss } from 'react-icons/si';
+import { DiAws } from 'react-icons/di';
 
-const skills = [
-  {
-    category: 'Frontend',
-    items: [
-      { name: 'React', level: 90 },
-      { name: 'JavaScript', level: 85 },
-      { name: 'HTML/CSS', level: 95 },
-      { name: 'Tailwind CSS', level: 80 },
-      { name: 'TypeScript', level: 75 },
-    ],
-  },
-  {
-    category: 'Backend',
-    items: [
-      { name: 'Node.js', level: 85 },
-      { name: 'Express', level: 80 },
-      { name: 'MongoDB', level: 75 },
-      { name: 'PostgreSQL', level: 70 },
-      { name: 'RESTful APIs', level: 85 },
-    ],
-  },
-  {
-    category: 'Tools & Others',
-    items: [
-      { name: 'Git', level: 90 },
-      { name: 'Docker', level: 70 },
-      { name: 'AWS', level: 65 },
-      { name: 'CI/CD', level: 75 },
-      { name: 'Agile/Scrum', level: 80 },
-    ],
-  },
-];
+const SkillCard = ({ icon: Icon, name, level, color }) => {
+  const [ref, inView] = useInView({
+    threshold: 0.2,
+    triggerOnce: true,
+  });
+
+  const springProps = useSpring({
+    width: inView ? `${level}%` : '0%',
+    config: { tension: 100, friction: 20 },
+  });
+
+  return (
+    <Tilt className="Tilt" options={{ max: 15, scale: 1.05, speed: 400 }}>
+      <motion.div
+        ref={ref}
+        initial={{ opacity: 0, y: 20 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.5 }}
+        className="relative p-6 rounded-2xl bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700 shadow-xl hover:shadow-2xl transition-all duration-300"
+      >
+        <div className="flex items-center space-x-4">
+          <div className={`p-3 rounded-xl ${color} bg-opacity-10`}>
+            <Icon className="w-8 h-8" />
+          </div>
+          <div className="flex-1">
+            <h3 className="text-lg font-semibold text-white">{name}</h3>
+            <div className="mt-2 h-2 bg-gray-700 rounded-full overflow-hidden">
+              <animated.div
+                className={`h-full rounded-full ${color}`}
+                style={springProps}
+              />
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    </Tilt>
+  );
+};
 
 const Skills = () => {
+  const skills = [
+    { icon: FaReact, name: 'React', level: 90, color: 'bg-blue-500' },
+    { icon: FaNodeJs, name: 'Node.js', level: 85, color: 'bg-green-500' },
+    { icon: FaJs, name: 'JavaScript', level: 95, color: 'bg-yellow-500' },
+    { icon: SiTypescript, name: 'TypeScript', level: 80, color: 'bg-blue-600' },
+    { icon: FaHtml5, name: 'HTML5', level: 95, color: 'bg-orange-500' },
+    { icon: FaCss3, name: 'CSS3', level: 90, color: 'bg-blue-400' },
+    { icon: SiTailwindcss, name: 'Tailwind CSS', level: 85, color: 'bg-cyan-500' },
+    { icon: SiMongodb, name: 'MongoDB', level: 75, color: 'bg-green-600' },
+    { icon: SiPostgresql, name: 'PostgreSQL', level: 70, color: 'bg-blue-700' },
+    { icon: FaGit, name: 'Git', level: 90, color: 'bg-red-500' },
+    { icon: FaDocker, name: 'Docker', level: 70, color: 'bg-blue-400' },
+    { icon: DiAws, name: 'AWS', level: 65, color: 'bg-orange-600' },
+  ];
+
   return (
-    <div className="py-24 sm:py-32">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl text-center">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-3xl font-bold tracking-tight text-white sm:text-4xl"
-          >
-            My Skills
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="mt-2 text-lg leading-8 text-gray-300"
-          >
-            Here are the technologies and tools I work with.
-          </motion.p>
-        </div>
-        <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-          {skills.map((skillCategory, index) => (
-            <motion.div
-              key={skillCategory.category}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="flex flex-col items-start"
-            >
-              <h3 className="text-xl font-semibold leading-7 text-white">
-                {skillCategory.category}
-              </h3>
-              <div className="mt-6 w-full space-y-4">
-                {skillCategory.items.map((skill) => (
-                  <div key={skill.name} className="space-y-2">
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm font-medium text-gray-300">{skill.name}</span>
-                      <span className="text-sm text-gray-400">{skill.level}%</span>
-                    </div>
-                    <div className="h-2 w-full rounded-full bg-gray-700">
-                      <motion.div
-                        initial={{ width: 0 }}
-                        animate={{ width: `${skill.level}%` }}
-                        transition={{ duration: 1, delay: index * 0.1 }}
-                        className="h-full rounded-full bg-indigo-500"
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black py-24 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-600">
+            Technical Skills
+          </h2>
+          <p className="mt-4 text-lg text-gray-400">
+            A showcase of my technical expertise and proficiency
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {skills.map((skill, index) => (
+            <SkillCard key={skill.name} {...skill} />
           ))}
         </div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5, duration: 1 }}
+          className="mt-16 text-center"
+        >
+          <div className="inline-block p-4 rounded-xl bg-gradient-to-r from-indigo-500/10 to-purple-500/10 border border-indigo-500/20">
+            <p className="text-gray-400">
+              Continuously learning and expanding my skill set
+            </p>
+          </div>
+        </motion.div>
       </div>
     </div>
   );

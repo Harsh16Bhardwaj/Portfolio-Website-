@@ -1,129 +1,269 @@
 import { motion } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
 import { useState } from 'react';
+import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope } from 'react-icons/fa';
 
 const Contact = () => {
+  const [ref, inView] = useInView({
+    threshold: 0.2,
+    triggerOnce: true,
+  });
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    subject: '',
     message: '',
   });
 
-  const handleSubmit = (e) => {
+  const [status, setStatus] = useState({
+    loading: false,
+    success: false,
+    error: false,
+    message: '',
+  });
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log('Form submitted:', formData);
+    setStatus({ ...status, loading: true });
+
+    try {
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setStatus({
+          loading: false,
+          success: true,
+          error: false,
+          message: 'Message sent successfully!',
+        });
+        setFormData({
+          name: '',
+          email: '',
+          subject: '',
+          message: '',
+        });
+      } else {
+        throw new Error('Failed to send message');
+      }
+    } catch (error) {
+      setStatus({
+        loading: false,
+        success: false,
+        error: true,
+        message: 'Failed to send message. Please try again later.',
+      });
+    }
   };
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
   };
 
+  const socialLinks = [
+    {
+      icon: FaGithub,
+      href: 'https://github.com/yourusername',
+      label: 'GitHub',
+    },
+    {
+      icon: FaLinkedin,
+      href: 'https://linkedin.com/in/yourusername',
+      label: 'LinkedIn',
+    },
+    {
+      icon: FaTwitter,
+      href: 'https://twitter.com/yourusername',
+      label: 'Twitter',
+    },
+  ];
+
   return (
-    <div className="py-24 sm:py-32">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl text-center">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-3xl font-bold tracking-tight text-white sm:text-4xl"
-          >
-            Get in Touch
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="mt-2 text-lg leading-8 text-gray-300"
-          >
-            I'd love to hear from you! Feel free to reach out for any inquiries or opportunities.
-          </motion.p>
-        </div>
-        <div className="mx-auto mt-16 max-w-2xl sm:mt-20">
-          <motion.form
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            onSubmit={handleSubmit}
-            className="space-y-6"
-          >
-            <div>
-              <label htmlFor="name" className="block text-sm font-medium leading-6 text-white">
-                Name
-              </label>
-              <div className="mt-2">
-                <input
-                  type="text"
-                  name="name"
-                  id="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  className="block w-full rounded-md border-0 bg-white/5 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium leading-6 text-white">
-                Email
-              </label>
-              <div className="mt-2">
-                <input
-                  type="email"
-                  name="email"
-                  id="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className="block w-full rounded-md border-0 bg-white/5 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
-            <div>
-              <label htmlFor="message" className="block text-sm font-medium leading-6 text-white">
-                Message
-              </label>
-              <div className="mt-2">
-                <textarea
-                  name="message"
-                  id="message"
-                  rows={4}
-                  value={formData.message}
-                  onChange={handleChange}
-                  className="block w-full rounded-md border-0 bg-white/5 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
-            <div>
-              <button
-                type="submit"
-                className="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400"
-              >
-                Send Message
-              </button>
-            </div>
-          </motion.form>
+    <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-gray-900 to-gray-950 via-gray-800">
+      {/* Animated Background Gradients */}
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute top-0 left-0 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob" />
+        <div className="absolute top-0 right-0 w-96 h-96 bg-indigo-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-pink-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000" />
+      </div>
+
+      <div className="relative py-24 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
           <motion.div
+            ref={ref}
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="mt-10 flex justify-center space-x-6"
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5 }}
+            className="text-center mb-16"
           >
-            <a href="#" className="text-gray-400 hover:text-gray-300">
-              <span className="sr-only">GitHub</span>
-              <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" />
-              </svg>
-            </a>
-            <a href="#" className="text-gray-400 hover:text-gray-300">
-              <span className="sr-only">LinkedIn</span>
-              <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-              </svg>
-            </a>
+            <h2 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-500 to-pink-500">
+              Get in Touch
+            </h2>
+            <p className="mt-4 text-lg text-gray-400">
+              Let's work together to bring your ideas to life
+            </p>
           </motion.div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              animate={inView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="space-y-8"
+            >
+              <div className="relative group">
+                <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200" />
+                <div className="relative bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-8 border border-gray-700 shadow-xl backdrop-blur-sm">
+                  <h3 className="text-2xl font-bold text-white mb-4">Contact Information</h3>
+                  <p className="text-gray-400 mb-6">
+                    Feel free to reach out to me for any questions or opportunities. I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions.
+                  </p>
+                  <div className="space-y-4">
+                    <div className="flex items-center space-x-4">
+                      <FaEnvelope className="w-6 h-6 text-indigo-400" />
+                      <a
+                        href="mailto:your.email@example.com"
+                        className="text-gray-400 hover:text-white transition-colors duration-300"
+                      >
+                        your.email@example.com
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="relative group">
+                <div className="absolute -inset-1 bg-gradient-to-r from-pink-500 to-purple-600 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200" />
+                <div className="relative bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-8 border border-gray-700 shadow-xl backdrop-blur-sm">
+                  <h3 className="text-2xl font-bold text-white mb-4">Connect with Me</h3>
+                  <div className="flex space-x-6">
+                    {socialLinks.map((social) => (
+                      <motion.a
+                        key={social.label}
+                        href={social.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-gray-400 hover:text-white transition-colors duration-300"
+                        aria-label={social.label}
+                        whileHover={{ scale: 1.2, rotate: 5 }}
+                        whileTap={{ scale: 0.9 }}
+                      >
+                        <social.icon className="w-6 h-6" />
+                      </motion.a>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              animate={inView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.4 }}
+            >
+              <div className="relative group">
+                <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200" />
+                <form onSubmit={handleSubmit} className="relative bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-8 border border-gray-700 shadow-xl backdrop-blur-sm space-y-6">
+                  <div>
+                    <label htmlFor="name" className="block text-sm font-medium text-gray-400 mb-2">
+                      Name
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      required
+                      className="w-full px-4 py-3 rounded-lg bg-gray-800/50 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300"
+                      placeholder="Your name"
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="email" className="block text-sm font-medium text-gray-400 mb-2">
+                      Email
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      required
+                      className="w-full px-4 py-3 rounded-lg bg-gray-800/50 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300"
+                      placeholder="your.email@example.com"
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="subject" className="block text-sm font-medium text-gray-400 mb-2">
+                      Subject
+                    </label>
+                    <input
+                      type="text"
+                      id="subject"
+                      name="subject"
+                      value={formData.subject}
+                      onChange={handleChange}
+                      required
+                      className="w-full px-4 py-3 rounded-lg bg-gray-800/50 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300"
+                      placeholder="What's this about?"
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="message" className="block text-sm font-medium text-gray-400 mb-2">
+                      Message
+                    </label>
+                    <textarea
+                      id="message"
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      required
+                      rows={6}
+                      className="w-full px-4 py-3 rounded-lg bg-gray-800/50 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300"
+                      placeholder="Your message"
+                    />
+                  </div>
+
+                  <div className="flex items-center justify-between">
+                    <motion.button
+                      type="submit"
+                      disabled={status.loading}
+                      className="px-6 py-3 rounded-lg bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white font-medium hover:from-indigo-600 hover:via-purple-600 hover:to-pink-600 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      {status.loading ? 'Sending...' : 'Send Message'}
+                    </motion.button>
+
+                    {status.message && (
+                      <motion.p
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className={`text-sm ${
+                          status.success ? 'text-green-400' : 'text-red-400'
+                        }`}
+                      >
+                        {status.message}
+                      </motion.p>
+                    )}
+                  </div>
+                </form>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </div>
     </div>

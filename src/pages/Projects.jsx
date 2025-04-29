@@ -3,7 +3,7 @@ import { useInView } from 'react-intersection-observer';
 import { Tilt } from 'react-tilt';
 import { FaGithub, FaExternalLinkAlt, FaTimes } from 'react-icons/fa';
 import { useState } from 'react';
-const deployment = import.meta.env.VITE_DEPLOYMENT_URL
+const deployment = 'https://harshbhardwajj.netlify.app'
 
 const projects = [
   {
@@ -13,7 +13,7 @@ const projects = [
     image: 'https://res.cloudinary.com/dikc4f9ip/image/upload/v1745945464/nyayvaad_n8j9vc.png' ,
     technologies: ['Next.js', 'Langflow', 'Gemini API', 'Prisma', 'SQLite', 'Turso', 'Shadcn'],
     github: '#https://github.com/Harsh16Bhardwaj/NyayVaad',
-    live: `${deployment}/sorry`,
+    live: `https://harshbhardwajj.netlify.app/sorry`,
     color: 'from-indigo-900 to-purple-900',
     problem: 'High costs and inefficiencies in legal consultancy and case management.',
     approach: 'Developed a scalable legal-tech pipeline with AI-driven summarization, reducing court judgment length by 67%. Integrated a comprehensive case dashboard for efficient management.',
@@ -26,7 +26,7 @@ const projects = [
     image: 'https://res.cloudinary.com/dikc4f9ip/image/upload/v1745945464/nameframe_xyuvr2.png',
     technologies: ['Next.js', 'Prisma', 'PostgreSQL', 'NeonDB', 'NodeMailer', 'Shadcn', 'Canvas'],
     github: '#https://github.com/Harsh16Bhardwaj/NameFrame',
-    live: `${deployment}/sorry`,
+    live: `https://harshbhardwajj.netlify.app/sorry`,
     color: 'from-blue-500 to-cyan-500',
     problem: 'Challenges in sending personalized certificates at scale due to email limits and downtime.',
     approach: 'Built a dynamic mailer with auto sender rotation and Kafka queues to ensure reliable delivery with less than 1% downtime.',
@@ -39,7 +39,7 @@ const projects = [
     image: 'https://res.cloudinary.com/dikc4f9ip/image/upload/v1745945463/seeda_r8do3h.png',
     technologies: ['MERN', 'Cloudinary', 'Socket.io', 'QrJs', 'MongoDB'],
     github: 'https://github.com/Harsh16Bhardwaj/Seedha-Sauda',
-    live: `${deployment}/sorry`,
+    live: `https://harshbhardwajj.netlify.app/sorry`,
     color: 'from-red-500 to-red-800',
     problem: 'Lack of secure, user-friendly peer-to-peer file-sharing solutions without loggin in. Something we expereince during labs',
     approach: 'Created a platform using QR code scanning for direct connections and automatic file deletion from Cloudinary post-session for privacy, a simple Socket.io connection for real-time file transfer, and a Cloudinary integration for secure file storage.',

@@ -1,23 +1,23 @@
-import { useState } from 'react';
-import ThreeScene from './components/landing/landing'
-import HeroSection from './components/landing/mainsection/herosection'
-import Skills from './components/skills/skills'
-import Projects from './components/projects/projects'
-import Projects1 from './components/projects/projects1'
-import Projects2 from './components/projects/projects2'
-import Default from './components/landing/mainsection/default'
-function App() {
-  const [showHeroSection, setShowHeroSection] = useState(false);
-  return (
-    <>
-        <ThreeScene>
-        {showHeroSection ? <><HeroSection /> </> : <Default onBegin={() => setShowHeroSection(true)} />}
-        </ThreeScene >
-        {/* <Skills /> */}
-        <Projects />
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Layout from './components/layout/Layout';
+import Home from './pages/Home';
+import Projects from './pages/Projects';
+import Skills from './pages/Skills';
+import Contact from './pages/Contact';
 
-    </>
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="projects" element={<Projects />} />
+          <Route path="skills" element={<Skills />} />
+          <Route path="contact" element={<Contact />} />
+        </Route>
+      </Routes>
+    </Router>
   );
 }
 
-export default App
+export default App;

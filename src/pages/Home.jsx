@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useInView } from 'react-intersection-observer';
 import { FaGithub, FaLinkedin, FaTwitter, FaFilePdf } from 'react-icons/fa';
 import { useState } from 'react';
+import gb1 from '../../public/gb1.jpg'
 
 const Home = () => {
   const [ref, inView] = useInView({
@@ -370,17 +371,21 @@ const Home = () => {
               initial={{ opacity: 0, x: 60 }}
               animate={inView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.9, delay: 0.2, ease: 'easeOut' }}
-              className="relative max-w-md mx-auto lg:max-w-none"
+              className="relative w-3/5 max-w-md mx-auto lg:max-w-none"
             >
-              <div className="relative rounded-3xl overflow-hidden border-2 border-gray-700 shadow-2xl transform hover:scale-105 transition-transform duration-500">
+              <motion.div 
+                className="relative rounded-3xl overflow-hidden shadow-2xl"
+                whileHover={{ rotate: 2 }}
+                transition={{ duration: 0.3 }}
+              >
                 <img
-                  src="/hero-image.jpg"
+                  src={gb1}
                   alt="Profile"
-                  className="w-full h-auto aspect-[4/3] object-cover"
+                  className="object-cover"
                   loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 to-transparent" />
-              </div>
+              </motion.div>
               
               <motion.div
                 className="absolute -bottom-8 -right-8 w-32 h-32 sm:w-40 sm:h-40 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full opacity-20 blur-3xl pulse-glow"
@@ -419,8 +424,8 @@ const Home = () => {
               </button>
               <div className="p-6 sm:p-8">
                 <h2 className="text-2xl sm:text-3xl font-bold text-white mb-6">My Resume</h2>
-                <div className="aspect-w-16 aspect-h-9">
-                  <iframe src="/resume.pdf" className="w-full h-full rounded-lg" title="Resume" />
+                <div className="aspect-w-16 h-screen aspect-h-9">
+                  <iframe src="https://res.cloudinary.com/dikc4f9ip/image/upload/v1745949359/Harsh_Bhardwaj_scpgnz.pdf" className="w-full h-full rounded-lg" title="Resume" />
                 </div>
               </div>
             </motion.div>

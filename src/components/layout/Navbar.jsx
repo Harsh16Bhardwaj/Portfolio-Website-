@@ -34,7 +34,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <header className="bg-gradient-to-br from-gray-900 to-black text-white relative">
+    <header className="bg-gradient-to-br z-[100] from-gray-900 to-black text-white relative">
       <style>
         {`
           .glow-on-hover:hover {

@@ -14,9 +14,9 @@ const Home = () => {
   const [showResume, setShowResume] = useState(false);
 
   const socialLinks = [
-    { icon: FaGithub, href: '#', label: 'GitHub' },
-    { icon: FaLinkedin, href: '#', label: 'LinkedIn' },
-    { icon: FaTwitter, href: '#', label: 'Twitter' },
+    { icon: FaGithub, href: 'https://github.com/Harsh16Bhardwaj', label: 'GitHub' },
+    { icon: FaLinkedin, href: 'https://www.linkedin.com/in/harsh-bhardwaj-80297b285/', label: 'LinkedIn' },
+    { icon: FaTwitter, href: 'https://x.com/HBhardwaj_05', label: 'Twitter' },
   ];
 
   return (

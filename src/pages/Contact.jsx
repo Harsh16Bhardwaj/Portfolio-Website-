@@ -72,17 +72,17 @@ const Contact = () => {
   const socialLinks = [
     {
       icon: FaGithub,
-      href: 'https://github.com/yourusername',
+      href: 'https://github.com/Harsh16Bhardwaj',
       label: 'GitHub',
     },
     {
       icon: FaLinkedin,
-      href: 'https://linkedin.com/in/yourusername',
+      href: 'https://www.linkedin.com/in/harsh-bhardwaj-80297b285/',
       label: 'LinkedIn',
     },
     {
       icon: FaTwitter,
-      href: 'https://twitter.com/yourusername',
+      href: 'https://x.com/HBhardwaj_05',
       label: 'Twitter',
     },
   ];

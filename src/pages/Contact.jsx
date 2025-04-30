@@ -97,7 +97,7 @@ const Contact = () => {
       </div>
 
       <div className="relative py-24 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-5xl mx-auto">
           <motion.div
             ref={ref}
             initial={{ opacity: 0, y: 20 }}
@@ -118,57 +118,6 @@ const Contact = () => {
               initial={{ opacity: 0, x: -50 }}
               animate={inView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="space-y-8"
-            >
-              <div className="relative group">
-                <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200" />
-                <div className="relative bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-8 border border-gray-700 shadow-xl backdrop-blur-sm">
-                  <h3 className="text-2xl font-bold text-white mb-4">Contact Information</h3>
-                  <p className="text-gray-400 mb-6">
-                    Feel free to reach out to me for any questions or opportunities. I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions.
-                  </p>
-                  <div className="space-y-4">
-                    <div className="flex items-center space-x-4">
-                      <FaEnvelope className="w-6 h-6 text-indigo-400" />
-                      <a
-                        href="mailto:your.email@example.com"
-                        className="text-gray-400 hover:text-white transition-colors duration-300"
-                      >
-                        your.email@example.com
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="relative group">
-                <div className="absolute -inset-1 bg-gradient-to-r from-pink-500 to-purple-600 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200" />
-                <div className="relative bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-8 border border-gray-700 shadow-xl backdrop-blur-sm">
-                  <h3 className="text-2xl font-bold text-white mb-4">Connect with Me</h3>
-                  <div className="flex space-x-6">
-                    {socialLinks.map((social) => (
-                      <motion.a
-                        key={social.label}
-                        href={social.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-gray-400 hover:text-white transition-colors duration-300"
-                        aria-label={social.label}
-                        whileHover={{ scale: 1.2, rotate: 5 }}
-                        whileTap={{ scale: 0.9 }}
-                      >
-                        <social.icon className="w-6 h-6" />
-                      </motion.a>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              animate={inView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.4 }}
             >
               <div className="relative group">
                 <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200" />
@@ -241,26 +190,71 @@ const Contact = () => {
                     <motion.button
                       type="submit"
                       disabled={status.loading}
-                      className="px-6 py-3 rounded-lg bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white font-medium hover:from-indigo-600 hover:via-purple-600 hover:to-pink-600 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="px-4 py-2 sm:px-8 text-md sm:text-md sm:py-4 rounded-lg bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white font-semibold hover:from-indigo-600 hover:via-purple-600 hover:to-pink-600 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                     >
-                      {status.loading ? 'Sending...' : 'Send Message'}
+                      {status.loading ? 'Sending...' : 'Send'}
                     </motion.button>
 
                     {status.message && (
-                      <motion.p
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className={`text-sm ${
-                          status.success ? 'text-green-400' : 'text-red-400'
-                        }`}
-                      >
+                      <p className={`text-sm ${status.success ? 'text-green-400' : 'text-red-400'}`}>
                         {status.message}
-                      </motion.p>
+                      </p>
                     )}
                   </div>
                 </form>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              animate={inView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="space-y-8"
+            >
+              <div className="relative group">
+                <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200" />
+                <div className="relative bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-8 border border-gray-700 shadow-xl backdrop-blur-sm">
+                  <h3 className="text-xl sm:text-2xl text-center sm:text-left underline underline-offset-8 decoration-pink-400 decoration-2 text-transparent bg-clip-text bg-gradient-to-r from-pink-700 via-pink-500 to-pink-700 font-bold text-white mb-4">Contact Information</h3>
+                  <p className="text-gray-400 text-sm sm:text-base  mb-6">
+                    Feel free to reach out to me for any questions or opportunities. I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions.
+                  </p>
+                  <div className="space-y-4">
+                    <div className=" flex flex-col  sm:flex items-center space-x-4">
+                      <FaEnvelope className=" sm:block sm:w-8 sm:h-8 text-indigo-400" />
+                      <a
+                        href="mailto:bhardwajharshmait23@gmail.com"
+                        className="text-gray-300 py-1 px-3 hover:scale-103  ease-in-out hover:duration-100 bg-blue-600/20 hover:bg-pink-600/40 mt-2 sm:mt-0 rounded-lg sm:ml-0 hover:text-white transition-colors duration-300"
+                      >
+                        bhardwajharshmait23@gmail.com
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="relative group">
+                <div className="absolute -inset-1 bg-gradient-to-r from-pink-500 to-purple-600 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200" />
+                <div className="relative bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-8 border border-gray-700 shadow-xl backdrop-blur-sm">
+                  <h3 className="text-2xl font-bold sm:text-left text-center text-white mb-4">Connect with Me</h3>
+                  <div className="flex items-center justify-center sm:justify-start sm:items-start space-x-6">
+                    {socialLinks.map((social) => (
+                      <motion.a
+                        key={social.label}
+                        href={social.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-gray-400 hover:text-white transition-colors duration-300"
+                        aria-label={social.label}
+                        whileHover={{ scale: 1.2, rotate: 5 }}
+                        whileTap={{ scale: 0.9 }}
+                      >
+                        <social.icon className="w-6 h-6" />
+                      </motion.a>
+                    ))}
+                  </div>
+                </div>
               </div>
             </motion.div>
           </div>

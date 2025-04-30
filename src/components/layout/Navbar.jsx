@@ -34,7 +34,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <header className="bg-gradient-to-br z-[100] from-gray-900 to-black text-white relative">
+    <header className="bg-gradient-to-r z-[100] from-gray-900 via-gray-800 to-gray-950 text-white relative">
       <style>
         {`
           .glow-on-hover:hover {
@@ -118,7 +118,7 @@ const Navbar = () => {
             className="flex items-center -m-1 p-1 cursor-pointer whitespace-nowrap"
           >
             <motion.span
-              className="text-xl sm:text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-600"
+              className="text-xl sm:text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-tl from-pink-400 via-yellow-400/90 to-pink-600"
               whileHover={{ scale: 1.05 }}
             >
               Harsh Bhardwaj

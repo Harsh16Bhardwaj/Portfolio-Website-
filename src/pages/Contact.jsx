@@ -2,6 +2,11 @@ import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { useState } from 'react';
 import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope } from 'react-icons/fa';
+import emailjs from '@emailjs/browser';
+
+// Initialize EmailJS with your public key
+emailjs.init('1bPa0YZnqa2LrpIur');
+const TemplateId = import.meta.env.VITE_TEMPLATE_ID;
 
 const Contact = () => {
   const [ref, inView] = useInView({
@@ -28,15 +33,20 @@ const Contact = () => {
     setStatus({ ...status, loading: true });
 
     try {
-      const response = await fetch('/api/send-email', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+      const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        subject: formData.subject,
+        message: formData.message,
+      };
 
-      if (response.ok) {
+      const response = await emailjs.send(
+        'service_o5z4zie',
+        TemplateId,
+        templateParams
+      );
+
+      if (response.status === 200) {
         setStatus({
           loading: false,
           success: true,
@@ -53,6 +63,7 @@ const Contact = () => {
         throw new Error('Failed to send message');
       }
     } catch (error) {
+      console.error('Error sending email:', error);
       setStatus({
         loading: false,
         success: false,

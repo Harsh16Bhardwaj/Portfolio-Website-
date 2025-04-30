@@ -73,15 +73,15 @@ const Blog = () => {
 
       <div className="blog-container max-w-7xl mx-auto relative z-100">
         {/* Header and Featured Blog Side-by-Side */}
-        <div className="flex flex-col justify-center items-center md:flex-row md:items-start md:gap-8 mb-6 sm:mb-12">
+        <div className="flex flex-col  justify-center items-center md:flex-row md:items-start md:gap-8 mb-6 sm:mb-12">
           <motion.div
             ref={ref}
             initial={{ y: 20 }}
             animate={{ y: 0 }}
             transition={{ duration: 0.5 }}
-            className="w-full md:w-1/3 flex flex-col items-center justify-center h-auto md:h-[380px] text-center md:text-left mb-6 md:mb-0"
+            className="w-full md:w-1/3 mb-20 sm:mb-0 flex flex-col items-center justify-center h-auto md:h-[380px] text-center md:text-left md:mb-0"
           >
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold underline underline-offset-8 decoration-pink-400 decoration-2 text-transparent bg-clip-text bg-gradient-to-r from-pink-700 via-pink-500 to-pink-700">
+            <h2 className="text-2xl  sm:text-3xl md:text-4xl font-bold underline underline-offset-8 decoration-pink-400 decoration-2 text-transparent bg-clip-text bg-gradient-to-r from-pink-600 via-pink-400 to-pink-600">
               My Tech Chronicles
             </h2>
             <p className="mt-2 text-sm sm:text-base text-gray-300">
@@ -91,7 +91,7 @@ const Blog = () => {
 
           {featuredBlog && (
             <Tilt
-              className="Tilt w-full md:w-2/3"
+              className="Tilt w-full md:w-1/3"
               options={{
                 max: 15,
                 scale: 1.05,
@@ -152,7 +152,7 @@ const Blog = () => {
           )}
         </div>
 
-        <h2 className="font-bold text-2xl sm:text-3xl md:text-4xl text-white text-center pt-4 mt-4 mb-6 sm:mb-8">
+        <h2 className="font-bold text-2xl sm:text-3xl md:text-4xl text-white text-center pt-4 mt-20 mb-6 sm:mb-8">
           Read Others
         </h2>
 

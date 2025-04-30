@@ -168,7 +168,7 @@ const Home = () => {
             background: #111827;
             transition: all 0.3s ease;
             position: relative;
-            z-index: 1;
+            z-index: 0;
           }
           .contact-button::before,
           .contact-button::after {

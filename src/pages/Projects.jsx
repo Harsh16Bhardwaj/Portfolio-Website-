@@ -4,7 +4,7 @@ import { Tilt } from 'react-tilt';
 import { FaGithub, FaExternalLinkAlt, FaTimes } from 'react-icons/fa';
 import { useState } from 'react';
 const deployment = 'https://harshbhardwajj.netlify.app'
-
+import nameframe from '../../public/nameframe.jpg';
 const projects = [
   {
     id: 1,
@@ -23,10 +23,10 @@ const projects = [
     id: 2,
     title: 'NameFrame',
     description: 'A dynamic event certification solution for sending personalized certificates.',
-    image: 'https://res.cloudinary.com/dikc4f9ip/image/upload/v1745945464/nameframe_xyuvr2.png',
+    image: 'https://res.cloudinary.com/dimoa9ymu/image/upload/v1747244526/nameframe_vecf1p.jpg',
     technologies: ['Next.js', 'Prisma', 'PostgreSQL', 'NeonDB', 'NodeMailer', 'Shadcn', 'Canvas'],
-    github: '#https://github.com/Harsh16Bhardwaj/NameFrame',
-    live: `https://harshbhardwajj.netlify.app/sorry`,
+    github: 'https://github.com/Harsh16Bhardwaj/NameFrame',
+    live: `https://nameframe.site/`,
     color: 'from-blue-500 to-cyan-500',
     problem: 'Challenges in sending personalized certificates at scale due to email limits and downtime.',
     approach: 'Built a dynamic mailer with auto sender rotation and Kafka queues to ensure reliable delivery with less than 1% downtime.',

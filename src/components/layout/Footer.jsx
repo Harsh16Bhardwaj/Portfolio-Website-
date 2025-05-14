@@ -11,7 +11,7 @@ const Footer = () => {
     { icon: FaLinkedin, href: 'https://www.linkedin.com/in/harsh-bhardwaj-80297b285/', label: 'LinkedIn' },
   ];
 
-  const learningTech = ['TypeScript', 'GraphQL', 'Docker', 'AWS'];
+  const learningTech = ['TypeScript', 'GraphQL', 'Docker', 'Redis'];
 
   // Handle cursor trail effect
   useEffect(() => {

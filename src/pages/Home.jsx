@@ -425,7 +425,7 @@ const Home = () => {
               <div className="p-6 sm:p-8">
                 <h2 className="text-2xl sm:text-3xl font-bold text-white mb-6">My Resume</h2>
                 <div className="aspect-w-16 h-screen aspect-h-9">
-                  <iframe src="https://res.cloudinary.com/dimoa9ymu/image/upload/v1747244703/Harsh_Bhardwaj_3_a3itfn.pdf" className="w-full h-full rounded-lg" title="Resume" />
+                  <iframe src="https://res.cloudinary.com/dimoa9ymu/image/upload/v1747325468/Harsh-Bhardwaj_og_qqpmfu.pdf" className="w-full h-full rounded-lg" title="Resume" />
                 </div>
               </div>
             </motion.div>

@@ -40,6 +40,14 @@ const Blog = () => {
       image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80',
       link: 'https://dev.to/harsh_bhardwaj_809a89d3a7/selection-sorts-3hdf',
     },
+    {
+      id: 5,
+      title: 'Data Pipelines: The Backbone of Modern Data Engineering',
+      description:
+        'Discover the essentials of data pipelines: architecture, ETL processes, and tools for efficient data flow and transformation in modern data engineering.',
+      image: 'https://res.cloudinary.com/dimoa9ymu/image/upload/v1747325711/https___dev-to-uploads.s3.amazonaws.com_uploads_articles_8xykei1d26p8sj9dwda5_snxiyj.webp',
+      link: 'https://dev.to/harsh_bhardwaj_809a89d3a7/what-is-a-data-pipeline-and-why-you-should-care-25lg',
+    },
   ];
 
   // Randomly select Blog of the Day
